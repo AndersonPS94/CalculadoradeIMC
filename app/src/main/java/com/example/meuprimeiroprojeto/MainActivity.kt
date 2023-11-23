@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,21 +26,27 @@ class MainActivity : AppCompatActivity() {
 
             //aqui eu mostro uma nova msg no TextView
 
+            val alturaStr = edtAltura.text.toString()
+            val pesoStr = edtPeso.text.toString()
 
-            val altura : Float =edtAltura.text.toString().toFloat()
-            val alturaFinal: Float = altura * altura
-            val peso: Float = edtPeso.text.toString().toFloat()
-            val result: Float = peso / alturaFinal
+            if (alturaStr.isNotEmpty() && pesoStr.isNotEmpty()) {
+                val altura: Float = alturaStr.toFloat()
+                val peso: Float = pesoStr.toFloat()
 
-            tvResultado.text = result.toString()
 
-            val intent = Intent(this, ResultActivity::class.java)
-                .apply {
-                    putExtra("EXTRA_RESULT", result)
-                }
-            startActivity(intent)
+                val alturaFinal: Float = altura * altura
+                val result: Float = peso / alturaFinal
 
+                tvResultado.text = result.toString()
+
+                val intent = Intent(this, ResultActivity::class.java)
+                    .apply {
+                        putExtra("EXTRA_RESULT", result)
+                    }
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Preencher corretamente os campos", Toast.LENGTH_LONG).show()
+            }
         }
-
     }
 }
