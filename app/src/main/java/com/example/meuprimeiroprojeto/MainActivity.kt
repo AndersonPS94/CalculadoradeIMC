@@ -1,5 +1,6 @@
 package com.example.meuprimeiroprojeto
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -28,10 +29,17 @@ class MainActivity : AppCompatActivity() {
             val altura : Float =edtAltura.text.toString().toFloat()
             val alturaFinal: Float = altura * altura
             val peso: Float = edtPeso.text.toString().toFloat()
-            val result = peso / alturaFinal
+            val result: Float = peso / alturaFinal
 
             tvResultado.text = result.toString()
 
+            val intent = Intent(this, ResultActivity::class.java)
+                .apply {
+                    putExtra("EXTRA_RESULT", result)
+                }
+            startActivity(intent)
+
         }
+
     }
 }
